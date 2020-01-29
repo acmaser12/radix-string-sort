@@ -1,0 +1,12 @@
+card
+house
+apple
+dog
+cat
+soup
+pool
+bottle
+lemon
+tar
+sock
+rex
