@@ -17,16 +17,21 @@ public class RadixStringSort {
             System.exit(2);
         }
 
-        // test
+        // deem first bucket as list of all words
         LinkedList<String> words = buckets[0];
-        for (String word : words) {
-            System.out.println(word);
-        }
 
-        // it seems that ASCII offsets lowercase characters by 96
-        char a = 'k';
-        int aInt = a - 96;
-        System.out.println("Value of 'a': " + aInt);
+        // project spec states words are no longer than 10 letters, so we will loop 10 times
+        for (int i = 1; i < 11; i++) {
+            for (String word : words) {
+                if (i <= word.length()) {
+                    char pointer = word.charAt(word.length() - i);
+                    // it seems that ASCII offsets lowercase characters by 96
+                    // to place into proper bucket, subtract int value of char by 96
+                    int charVal = pointer - 96;
+                    buckets[charVal].add(word);
+                }
+            }
+        }
     }
 
     private static LinkedList<String> loadWords(File wordFile) throws FileNotFoundException {
@@ -35,8 +40,6 @@ public class RadixStringSort {
         while (readFile.hasNextLine()) {
             words.add(readFile.nextLine());
         }
-
         return words;
     }
-
 }
