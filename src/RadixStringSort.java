@@ -6,6 +6,10 @@ import java.util.Scanner;
 public class RadixStringSort {
 
     public static void main(String[] args) {
+        // output my info
+        System.out.println("Submitted by Adam Maser - masera1@csp.edu");
+        System.out.println("I certify that this is my own work");
+
         // create array of buckets
         // TODO: Change this to Collection object later
         LinkedList<String>[] buckets = new LinkedList[27];
@@ -47,9 +51,10 @@ public class RadixStringSort {
                     bucket.removeFirst();
                 }
             }
-            System.out.println("\nIteration " + (11 - i) + ": ");
+            System.out.println("\nIterating on index: " + i);
+            System.out.print("\t");
             for (String word : words) {
-                System.out.print(word + " | ");
+                System.out.print(word + " ");
             }
             System.out.println();
         }
@@ -59,7 +64,7 @@ public class RadixStringSort {
         Scanner readFile = new Scanner(wordFile);
         LinkedList<String> words = new LinkedList<>();
         while (readFile.hasNextLine()) {
-            words.add(readFile.nextLine());
+            words.add(readFile.nextLine().toLowerCase());
         }
         return words;
     }

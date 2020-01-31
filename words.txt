@@ -1,4 +1,12 @@
-boy
-bat
-apple
-crook
+dog
+cactus
+plum
+ant
+APPLE
+cat
+Drum
+pumPkin
+burrow
+manatee
+woodpecker
+bookcase
