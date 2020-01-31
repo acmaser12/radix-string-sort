@@ -1,3 +1,20 @@
+/*
+
+Adam Maser
+CSC 422
+1.31.2020
+
+Assignment 3
+desc: Create a series of algorithms to implement a radix sort on Strings
+
+Which Collection object did I choose and why?
+I chose to use a LinkedList, simply because you can add and remove from the beginning and end of the list. When
+storing each string in a bucket, it is important to maintain the order of the elements, especially for reading
+those elements back into a list.
+
+ */
+
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.LinkedList;
@@ -46,7 +63,6 @@ public class RadixStringSort {
             displayWords(words);
         }
     }
-
 
     /**
      * @param words : LinkedList of unsorted words
