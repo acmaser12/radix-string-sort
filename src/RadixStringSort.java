@@ -46,6 +46,16 @@ public class RadixStringSort {
             displayWords(words);
         }
     }
+
+
+    /**
+     * @param words : LinkedList of unsorted words
+     * @param buckets : array of 27 empty LinkedLists that act as buckets for radix sort
+     * @param iteration : number of iteration currently on || determines which character is pulled from string
+     * @return : the updated buckets
+     *
+     * Iterates through each word in list and places it in a bucket based on character at interation param
+     */
     private static LinkedList<String>[] performRadixSortIteration(LinkedList<String> words, LinkedList<String>[] buckets, int iteration) {
         for (String word : words) {
             // pointer determines which bucket the word goes into
@@ -53,17 +63,32 @@ public class RadixStringSort {
             if (word.length() >= iteration) {
                 pointer = word.charAt(iteration - 1) - 96;  // offset by 96 for ASCII char values
             }
+            // place the word in the particular bucket
             buckets = placeInBucket(buckets, pointer, word);
         }
-
         return buckets;
     }
 
+    /**
+     * @param buckets : array of 27 LinkedLists that act as buckets for radix sort
+     * @param bucketLocation : int that determines which bucket to place word in
+     * @param word : String that is being added to bucket
+     * @return : the updated buckets
+     *
+     * Receives a word and position, adds the word to the specified position in buckets param
+     */
     private static LinkedList<String>[] placeInBucket(LinkedList<String>[] buckets, int bucketLocation, String word) {
         buckets[bucketLocation].addLast(word);
         return buckets;
     }
 
+    /**
+     * @param buckets : array of 27 LinkedLists that act as buckets for radix sort
+     * @param words : empty LinkedList that will store words in updated order from radix sort
+     * @return : LinkedList that contains words in updated order
+     *
+     * Receives buckets that have been updated from radix sort, iterates through each bucket and adds to list
+     */
     private static LinkedList<String> extractFromBuckets(LinkedList<String>[] buckets, LinkedList<String> words) {
         for (LinkedList<String> bucket : buckets) {
             int size = bucket.size();
@@ -77,6 +102,11 @@ public class RadixStringSort {
         return words;
     }
 
+    /**
+     * @param words : LinkedList of words to be displayed
+     *
+     * Outputs each word in LinkedList followed by a space
+     */
     private static void displayWords(LinkedList<String> words) {
         for (String word : words) {
             System.out.print(word + " ");
@@ -84,6 +114,11 @@ public class RadixStringSort {
         System.out.println();
     }
 
+    /**
+     * @param wordFile : File object containing words
+     * @return : LinkedList of individual words to be sorted
+     * @throws FileNotFoundException : if file not found, throws exception
+     */
     private static LinkedList<String> loadWords(File wordFile) throws FileNotFoundException {
         Scanner readFile = new Scanner(wordFile);
         LinkedList<String> words = new LinkedList<>();
