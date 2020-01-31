@@ -10,9 +10,12 @@ public class RadixStringSort {
         // TODO: Change this to Collection object later
         LinkedList<String>[] buckets = new LinkedList[27];
 
-        // we will say that the first List in the bucket is the carryover bucket
+        // create list to store words
+        LinkedList<String> words = new LinkedList<>();
+
+        // load words from file into
         try {
-            buckets[0] = loadWords(new File("words.txt"));
+            words = loadWords(new File("words.txt"));
         } catch (FileNotFoundException ex) {
             System.out.println("File not found. Exiting program...");
             System.exit(2);
@@ -22,39 +25,33 @@ public class RadixStringSort {
             buckets[i] = new LinkedList<>();
         }
 
-        // create bucket to store list words
-        LinkedList<String> words = new LinkedList<>();
 
         // project spec states words are no longer than 10 letters, so we will loop 10 times
-        for (int i = 1; i < 11; i++) {
+        for (int i = 10; i > 0; i--) {
             for (String word : words) {
-                if (i <= word.length()) {
-                    char pointer = word.charAt(word.length() - i);
-                    // it seems that ASCII offsets lowercase characters by 96
-                    // to place into proper bucket, subtract int value of char by 96
-                    int charVal = pointer - 96;
-                    buckets[charVal].add(word);
-                } else {
-                    // char pointer = word.charAt(word.length() - 1);
-                    // int charVal = pointer - 96;
-                    buckets[0].add(word);
+                // pointer determines which bucket the word goes into
+                int pointer = 0;
+                if (word.length() >= i) {
+                    pointer = word.charAt(i-1) - 96;  // offset by 96 for ASCII char values
                 }
+                buckets[pointer].addLast(word);
             }
             // empty words list
             words.clear();
             for (LinkedList<String> bucket : buckets) {
-                // System.out.println("Bucket " + j + " contains: ");
-                for (String word : bucket) {
-                    // System.out.println(word);
-                    words.add(word);
+                int size = bucket.size();
+                for (int j = 0; j < size; j++) {
+                    // add first element in list
+                    words.add(bucket.getFirst());
+                    // pop first element out of list
+                    bucket.removeFirst();
                 }
-                // empty particular bucket
-                bucket.clear();
             }
-            System.out.println("\nIteration " + i + ": ");
+            System.out.println("\nIteration " + (11 - i) + ": ");
             for (String word : words) {
                 System.out.print(word + " | ");
             }
+            System.out.println();
         }
     }
 
