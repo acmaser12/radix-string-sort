@@ -7,6 +7,7 @@ public class RadixStringSort {
 
     public static void main(String[] args) {
         // create array of buckets
+        // TODO: Change this to Collection object later
         LinkedList<String>[] buckets = new LinkedList[27];
 
         // we will say that the first List in the bucket is the carryover bucket
@@ -17,8 +18,12 @@ public class RadixStringSort {
             System.exit(2);
         }
 
-        // deem first bucket as list of all words
-        LinkedList<String> words = buckets[0];
+        for (int i = 0; i < 27; i++) {
+            buckets[i] = new LinkedList<>();
+        }
+
+        // create bucket to store list words
+        LinkedList<String> words = new LinkedList<>();
 
         // project spec states words are no longer than 10 letters, so we will loop 10 times
         for (int i = 1; i < 11; i++) {
@@ -29,7 +34,26 @@ public class RadixStringSort {
                     // to place into proper bucket, subtract int value of char by 96
                     int charVal = pointer - 96;
                     buckets[charVal].add(word);
+                } else {
+                    // char pointer = word.charAt(word.length() - 1);
+                    // int charVal = pointer - 96;
+                    buckets[0].add(word);
                 }
+            }
+            // empty words list
+            words.clear();
+            for (LinkedList<String> bucket : buckets) {
+                // System.out.println("Bucket " + j + " contains: ");
+                for (String word : bucket) {
+                    // System.out.println(word);
+                    words.add(word);
+                }
+                // empty particular bucket
+                bucket.clear();
+            }
+            System.out.println("\nIteration " + i + ": ");
+            for (String word : words) {
+                System.out.print(word + " | ");
             }
         }
     }

@@ -1,12 +1,4 @@
-card
-house
 apple
+box
+card
 dog
-cat
-soup
-pool
-bottle
-lemon
-tar
-sock
-rex
