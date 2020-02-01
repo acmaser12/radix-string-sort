@@ -1,7 +1,7 @@
 /*
 
 Adam Maser
-CSC 422
+CSC 420
 1.31.2020
 
 Assignment 3
@@ -14,9 +14,9 @@ those elements back into a list.
 
  */
 
-
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -28,8 +28,7 @@ public class RadixStringSort {
         System.out.println("I certify that this is my own work");
 
         // create array of buckets
-        LinkedList<String>[] buckets = new LinkedList[27];
-
+        ArrayList<LinkedList<String>> buckets = new ArrayList<>();
         // create list to store words
         LinkedList<String> words = new LinkedList<>();
 
@@ -43,8 +42,11 @@ public class RadixStringSort {
 
         // instantiate each bucket
         for (int i = 0; i < 27; i++) {
-            buckets[i] = new LinkedList<>();
+            buckets.add(new LinkedList<>());
         }
+
+        // remove any extra space in buckets
+        buckets.trimToSize();
 
         // project spec states words are no longer than 10 letters, so we will iterate 10 times
         for (int i = 10; i > 0; i--) {
@@ -71,7 +73,7 @@ public class RadixStringSort {
      *
      * Iterates through each word in list and places it in a bucket based on character at interation param
      */
-    private static void performRadixSortIteration(LinkedList<String> words, LinkedList<String>[] buckets, int iteration) {
+    private static void performRadixSortIteration(LinkedList<String> words, ArrayList<LinkedList<String>> buckets, int iteration) {
         for (String word : words) {
             // pointer determines which bucket the word goes into
             int pointer = 0;
@@ -90,8 +92,8 @@ public class RadixStringSort {
      *
      * Receives a word and position, adds the word to the specified position in buckets param
      */
-    private static void placeInBucket(LinkedList<String>[] buckets, int bucketLocation, String word) {
-        buckets[bucketLocation].addLast(word);
+    private static void placeInBucket(ArrayList<LinkedList<String>> buckets, int bucketLocation, String word) {
+        buckets.get(bucketLocation).addLast(word);
     }
 
     /**
@@ -100,7 +102,7 @@ public class RadixStringSort {
      *
      * Receives buckets that have been updated from radix sort, iterates through each bucket and adds to list
      */
-    private static void extractFromBuckets(LinkedList<String>[] buckets, LinkedList<String> words) {
+    private static void extractFromBuckets(ArrayList<LinkedList<String>> buckets, LinkedList<String> words) {
         for (LinkedList<String> bucket : buckets) {
             int size = bucket.size();
             for (int j = 0; j < size; j++) {
