@@ -77,6 +77,8 @@ public class RadixStringSort {
     private static void performRadixSortIteration(LinkedList<String> words, ArrayList<LinkedList<String>> buckets, int iteration) {
         for (String word : words) {
             // pointer determines which bucket the word goes into
+            // giving the pointer a default of 0
+            // if words are shorter than this iteration, they will be placed in the first bucket
             int pointer = 0;
             if (word.length() >= iteration) {
                 pointer = word.charAt(iteration - 1) - 96;  // offset by 96 for ASCII char values
@@ -94,6 +96,7 @@ public class RadixStringSort {
      * Receives a word and position, adds the word to the specified position in buckets param
      */
     private static void placeInBucket(ArrayList<LinkedList<String>> buckets, int bucketLocation, String word) {
+        // add word at bucketLocation in buckets
         buckets.get(bucketLocation).addLast(word);
     }
 
@@ -102,6 +105,7 @@ public class RadixStringSort {
      * @param words : empty LinkedList that will store words in updated order from radix sort
      *
      * Receives buckets that have been updated from radix sort, iterates through each bucket and adds to list
+     * When done, all buckets are empty and ready for the next iteration
      */
     private static void extractFromBuckets(ArrayList<LinkedList<String>> buckets, LinkedList<String> words) {
         for (LinkedList<String> bucket : buckets) {
@@ -109,7 +113,7 @@ public class RadixStringSort {
             for (int j = 0; j < size; j++) {
                 // add first element in list
                 words.add(bucket.getFirst());
-                // pop first element out of list
+                // pop first element out of bucket to allow for next iteration
                 bucket.removeFirst();
             }
         }
