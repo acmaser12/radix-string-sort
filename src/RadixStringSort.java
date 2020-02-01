@@ -29,6 +29,7 @@ public class RadixStringSort {
 
         // create array of buckets
         ArrayList<LinkedList<String>> buckets = new ArrayList<>();
+
         // create list to store words
         LinkedList<String> words = new LinkedList<>();
 
@@ -134,6 +135,7 @@ public class RadixStringSort {
     private static LinkedList<String> loadWords(File wordFile) throws FileNotFoundException {
         Scanner readFile = new Scanner(wordFile);
         LinkedList<String> words = new LinkedList<>();
+        // add each word to list, ensuring they are lowercase
         while (readFile.hasNextLine()) {
             words.add(readFile.nextLine().toLowerCase());
         }
